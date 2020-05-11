@@ -1,10 +1,9 @@
+'''
+The classification models are traind and made presistant for later use
+'''
 
-import requests
-import time
-import re
 import spacy
 import pickle
-import numpy as np
 import pandas as pd
 from bs4 import BeautifulSoup
 from sklearn.ensemble import RandomForestClassifier
@@ -16,31 +15,34 @@ from sklearn.pipeline import Pipeline
 from sklearn import metrics
 from tqdm import tqdm
 
-nlp = spacy.load("en_core_web_md", disable=["parser", "textcat", "ner"])
+#run in spacy environment
+nlp = spacy.load("en_core_web_sm", disable=["parser", "textcat", "ner"])
 
-
+# or t.is_oov was removed from if not statement in def
+#en_core_web_sm was used instead of md
 def custom_tokenizer(text):
     '''
     used to filter out unwanted words, punctuation, and so on
     '''
     tokens = []
     for t in nlp(text):
-        if not(len(t) < 2 or t.is_stop or t.like_num or 
-               t.is_punct or t.is_oov or not t.is_alpha):
+        if not(len(t) < 2 or t.is_stop or t.like_num or
+               t.is_punct or not t.is_alpha):
             tokens.append(t.lemma_)
-    return tokens 
+    return tokens
+
 
 #read in total dataframe of scraped lyrics
-df_total = pd.read_csv('df_total.csv')
+df_total = pd.read_csv('data/compiled_lyrics/df_total.csv')
 
 #define our corpus and y
 corpus = df_total['lyrics']
 y = df_total['artist']
 
 #define out bag or words and hyerparameters
-bow = CountVectorizer(tokenizer=custom_tokenizer, 
-                      ngram_range=(1, 1), 
-                      min_df=0.01, 
+bow = CountVectorizer(tokenizer=custom_tokenizer,
+                      ngram_range=(1, 1),
+                      min_df=0.01,
                       max_df=0.99)
 
 #split data for test and train
@@ -61,18 +63,18 @@ m = Pipeline([
 ])
 
 #test cross validation with a accuracy score
-print('The mean cross validation score is: ' + 
-                str(cross_val_score(m, X_train, y_train, scoring='accuracy', n_jobs=4, cv=4).mean()))
+print('The mean cross validation score is: ' +
+      str(cross_val_score(m, X_train, y_train, scoring='accuracy', n_jobs=4, cv=4).mean()))
 
 #fit our model
 m.fit(X_train, y_train)
 
 #make out bow and m presistant for use in our final program
-with open('bow.p', 'wb') as f:
+with open('models/bow.p', 'wb') as f:
     pickle.dump(bow, f)
 
-with open('model.p', 'wb') as f:
+with open('models/model.p', 'wb') as f:
     pickle.dump(m, f)
 
-print('Your model and bog of words have been made presistant and ready for use!')
+print('Your model and bag of words have been made presistant and ready for use!')
 

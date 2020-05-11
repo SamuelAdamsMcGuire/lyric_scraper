@@ -1,5 +1,8 @@
-#using the web address for the desired artist the user can then using the command line
-#enter the webaddress and through this program the lyrics will be scraped. 
+'''
+using the web address for the desired artist the user can then using the
+command line enter the webaddress and through this program the lyrics
+will be scraped.
+'''
 
 import requests
 import time
@@ -8,6 +11,7 @@ import numpy as np
 import pandas as pd
 from bs4 import BeautifulSoup
 from tqdm import tqdm
+
 
 def get_soup(landingpage):
     '''
@@ -18,20 +22,23 @@ def get_soup(landingpage):
     time.sleep(np.random.uniform(0.4, 1.3))
     return soup
 
+
 def get_artist(soup_overview):
     '''
     retrieves artist name from the soup
     '''
-    return soup_overview.find(class_ = "artist").text
+    return soup_overview.find(class_="artist").text
+
 
 def get_links(soup_overview):
     '''
     retrieves the song links
     '''
-    links = soup_overview.find_all(class_ = "tal qx")
+    links = soup_overview.find_all(class_="tal qx")
     links = [link.a['href'] for link in links]
     links = ['https://www.lyrics.com' + str(link) for link in links]
     return links
+
 
 def get_lyrics(link):
     '''
@@ -43,6 +50,7 @@ def get_lyrics(link):
     time.sleep(np.random.uniform(0.4, 1.3))
     return lyrics
 
+
 args = sys.argv
 artistpage = sys.argv[1]
 
@@ -51,7 +59,7 @@ artist = get_artist(soup)
 links = get_links(soup)
 
 
-lyric_dictionary = {'artist':[], 'lyrics':[]}
+lyric_dictionary = {'artist': [], 'lyrics': []}
 
 try:
     for i in tqdm(range(len(links))):
@@ -59,9 +67,9 @@ try:
         lyric = get_lyrics(links[i])
         lyric_dictionary['lyrics'].append(lyric)
 except ValueError:
-        pass
+    pass
 except AttributeError:
-        pass
+    pass
 
 lyric_df = pd.DataFrame(lyric_dictionary, columns=['artist', 'lyrics'])
-lyric_df.to_csv('lyrics_' + artist + '.csv', sep='\t')
+lyric_df.to_csv('lyrics/'+'lyrics_' + artist + '.csv', sep='\t')
