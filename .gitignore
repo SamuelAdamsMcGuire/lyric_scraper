@@ -1,5 +1,6 @@
 notebooks/*
 old_scripts/*
+data/html/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
