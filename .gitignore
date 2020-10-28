@@ -1,6 +1,6 @@
 notebooks/*
 old_scripts/*
-data/html/*
+data/html/
 *.html
 
 # Byte-compiled / optimized / DLL files
