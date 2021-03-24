@@ -1,5 +1,6 @@
 '''
-Execution file for the entire program. Allows users to download new artists or test the trained model on it's knowledge of the artist's lyrics
+Execution file for the entire program. Allows users to download new artists or 
+test the trained model on it's knowledge of the artist's lyrics
 '''
 
 import pickle
