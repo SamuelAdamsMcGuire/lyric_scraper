@@ -16,8 +16,14 @@ def lyric_compiler(file_directory, artist):
     df_total = pd.DataFrame(columns=['artist', 'title', 'lyrics'])
 
     for filename in os.listdir(file_directory):
-        df = pd.read_csv(file_directory+filename, index_col=0, error_bad_lines=False, sep='\t')
+        df = pd.read_csv(
+            file_directory +
+            filename,
+            index_col=0,
+            error_bad_lines=False,
+            sep='\t')
         df_total = df_total.append(df)
 
     df_total.to_csv('./data/compiled_lyrics/df_total.csv', index=False)
-    print(f'The available songs from {artist} have been scraped and added to our database')
+    print(
+        f'The available songs from {artist} have been scraped and added to our database')

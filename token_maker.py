@@ -4,6 +4,7 @@ import spacy
 
 nlp = spacy.load("en_core_web_sm", disable=["parser", "textcat", "ner"])
 
+
 def custom_tokenizer(text):
     '''
     used to filter out unwanted words, punctuation, and so on
