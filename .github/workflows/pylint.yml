@@ -1,4 +1,4 @@
-name: pylint
+name: code_style
 
 on: [push, pull_request]
 
