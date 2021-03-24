@@ -20,4 +20,4 @@ def lyric_compiler(file_directory, artist):
         df_total = df_total.append(df)
 
     df_total.to_csv('./data/compiled_lyrics/df_total.csv', index=False)
-    print(f'The available songs from {artist} have been scraped and add to our database')
+    print(f'The available songs from {artist} have been scraped and added to our database')
