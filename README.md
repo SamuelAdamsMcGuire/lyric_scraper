@@ -1,4 +1,4 @@
-[![Actions Status](https://github.com/SamuelAdamsMcGuire/lyric_scraper/workflows/pylint/badge.svg)](https://github.com/SamuelAdamsMcGuire/lyric_scraper/actions)
+[![Actions Status](https://github.com/SamuelAdamsMcGuire/lyric_scraper/workflows/code_style/badge.svg)](https://github.com/SamuelAdamsMcGuire/lyric_scraper/actions)
 
 ## Lyrics Scrape/Recognition
 
