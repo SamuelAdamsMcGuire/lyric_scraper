@@ -29,7 +29,7 @@ def get_links(soup_overview):
     links = ['https://www.lyrics.com' + str(link) for link in link_href]
     return links
 
-    
+
 def get_song_title(soup_overview):
     '''
     retrieves songs titles
@@ -51,13 +51,14 @@ def get_lyrics(link, artist):
         f.write(str(soup))
     return lyrics
 
+
 def save_songs(links, title, artist):
     lyric_dictionary = {'artist': [], 'title': [], 'lyrics': []}
 
     try:
         for i in tqdm(range(len(links))):
             lyric_dictionary['artist'].append(artist)
-            title = title #get_song_title(soup_overview)
+            title = title  # get_song_title(soup_overview)
             lyric_dictionary['title'].append(title[i])
             lyric = get_lyrics(links[i], artist.replace(' ', '_'))
             lyric_dictionary['lyrics'].append(lyric)
@@ -65,9 +66,11 @@ def save_songs(links, title, artist):
         pass
     except AttributeError:
         pass
-    
+
     artist_underscore = artist.replace(' ', '_')
-    lyric_df = pd.DataFrame(lyric_dictionary, columns=['artist', 'title', 'lyrics'])
+    lyric_df = pd.DataFrame(
+        lyric_dictionary, columns=[
+            'artist', 'title', 'lyrics'])
     lyric_df.drop_duplicates(subset=['title'], inplace=True)
     lyric_df.to_csv(f'./data/lyrics/lyrics_{artist_underscore}.csv', sep='\t')
     print(f'Dataframe for {artist} has been made!')

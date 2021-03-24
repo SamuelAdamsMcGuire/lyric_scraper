@@ -1,6 +1,6 @@
 '''
 this program will ask user for artist/band name and return the lyrics
-webaddress for the desired artist/musician while also retrieving the 
+webaddress for the desired artist/musician while also retrieving the
 htlm soup from the artist landing page
 '''
 import requests
@@ -33,7 +33,7 @@ def get_artist_link(soup_overview):
     '''
     retrieves the artist link
     '''
-    link = soup_overview.find(class_ = "tal fx")
+    link = soup_overview.find(class_="tal fx")
     link = link.a['href']
     link = 'https://www.lyrics.com/' + str(link)
     return link
