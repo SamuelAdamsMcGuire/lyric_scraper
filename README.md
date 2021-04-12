@@ -2,8 +2,6 @@
 
 ## Lyrics Scrape/Recognition
 
-
-check
 This program broken down into modules, functions and an execution file. When executed the programs asks for a link then finds the link for a band/musician on [www.lyrics.com](https://www.lyrics.com), scrapes all of the lyrics available, compiles all artists of your choosing, trains a machine learning classification model and then implements the model with a bash user interface. The user can scrape more lyrics from other artists of enter lyrics of any kind in turn the  the model will 'guess' which artist the lyrics are from or could be from.  
 
 ## Installation
